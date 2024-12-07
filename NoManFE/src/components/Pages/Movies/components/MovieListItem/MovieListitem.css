@@ -1,0 +1,23 @@
+.list-item {
+  list-style-type: none;
+  width: 100%;
+  background: #777;
+  margin-bottom: 20px;
+  font-size: 2rem;
+  text-align: center;
+}
+.list-item:hover {
+  background: #444;
+}
+
+.list-item a {
+  text-decoration: none;
+  display: block;
+  width: 100%;
+  padding: 25px 0;
+  color: white;
+  font-weight: 700;
+}
+.list-item a:hover {
+  color: yellow;
+}
