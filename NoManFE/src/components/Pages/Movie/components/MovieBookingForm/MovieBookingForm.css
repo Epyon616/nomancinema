@@ -1,0 +1,26 @@
+form {
+  width: 60%;
+  margin: 0 auto;
+}
+form label,
+form label input,
+form label select,
+form button {
+  width: 100%;
+}
+form label {
+  display: block;
+  font-size: 2rem;
+}
+form label input, 
+form label select {
+  height: 50px;
+  font-size: 1.6rem;
+}
+
+form button {
+  height: 60px;
+  margin-top: 30px;
+  color: white;
+  font-size: 2.1rem;
+}
