@@ -8,7 +8,7 @@ type MovieListItemType = {
 
 const MovieListItem = ({name, movieId}:MovieListItemType) => (
   <li className="list-item">
-    <Link to={`/movies/`+ movieId}>{name}</Link>
+    <Link to={`/movie/`+ movieId}>{name}</Link>
   </li>
 );
 

@@ -1,12 +1,22 @@
 import axios from 'axios';
 import { Dispatch, SetStateAction } from 'react';
+import { MovieType, MovieShowTimeType } from '../types/types';
 
-const getData = async (path:string, responseMethod: Dispatch<SetStateAction<never[]>>) => {
+
+const getMovies = async (path:string, responseMethod: Dispatch<SetStateAction<MovieType[]>>) => {
   await axios.get(path).then(
-    (response: { data: { data: SetStateAction<never[]>; }; }) => {
+    (response) => {
       responseMethod(response.data.data)
     }
   )
 } 
 
-export default getData;
+const getMovieShowTimes = async (path:string, responseMethod: Dispatch<SetStateAction<MovieShowTimeType[]>>) => {
+  await axios.get(path).then(
+    (response) => {
+      responseMethod(response.data.data)
+    }
+  )
+} 
+
+export { getMovies, getMovieShowTimes };

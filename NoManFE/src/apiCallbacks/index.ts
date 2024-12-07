@@ -1,3 +1,3 @@
-import getData from "./getCallbacks";
+import { getMovies, getMovieShowTimes } from "./getCallbacks";
 
-export default getData;
+export { getMovies, getMovieShowTimes };
