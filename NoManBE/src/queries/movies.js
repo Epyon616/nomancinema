@@ -1,5 +1,5 @@
 const Pool = require("pg").Pool;
-const ResponseClass = require('../../helpers/response');
+const ResponseClass = require('../helpers/response');
 
 const pool = new Pool({
   user: process.env.DB_USER,

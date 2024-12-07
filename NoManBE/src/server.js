@@ -1,7 +1,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const { getMovies, getMovieById } = require('./database/queries/movies');
-const {getMovieShowingsByMovieId } = require('./database/queries/movieShowings');
+const { 
+  getMovies, 
+  getMovieById, 
+  getMovieShowingsByMovieId, 
+  createMovieBooking 
+} = require('./queries');
 
 const app = express();
 const port = 3000;
@@ -19,5 +23,7 @@ app.get('/api/movies', getMovies);
 app.get('/api/movies/:id', getMovieById);
 
 app.get('/api/movie-showings/:id', getMovieShowingsByMovieId);
+
+app.post('/api/movie-booking', createMovieBooking);
 
 module.exports = app;
