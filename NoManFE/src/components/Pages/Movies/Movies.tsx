@@ -1,19 +1,18 @@
 import { useState, useEffect, useContext } from 'react';
 import { MovieType } from '../../../types/types';
-
 import { ConfigContext } from '../../../contexts/ConfigContext';
 import MoviesList from './components/MoviesList';
 import {getMovies} from '../../../apiCallbacks';
-
+import { moviesApiPath } from '../../helpers/urlHelper';
 
 const Movies = () => {
-  const { configs: { apiHost, apiPort, apiPaths } } = useContext(ConfigContext);
+  const { configs } = useContext(ConfigContext);
   const [movies, setMovies] = useState<MovieType[]>([]);
-  const moviesApiPath = `${apiHost}:${apiPort}${apiPaths.moviesPath}`;
+ 
 
   useEffect(() => {
-    getMovies(moviesApiPath, setMovies)
-  }, [moviesApiPath]);
+    getMovies(moviesApiPath(configs), setMovies)
+  }, [configs]);
 
   return (
     <>

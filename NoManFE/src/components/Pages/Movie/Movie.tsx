@@ -6,33 +6,31 @@ import { MovieShowTimeType, MovieType } from "../../../types/types";
 import ShowTimeList from "./components/ShowTimeList";
 import MovieBookingForm from "./components/MovieBookingForm";
 import createBooking from "../../../apiCallbacks/postCallbacks";
+import { movieApiPath, showTimesApiPath, bookingPostPath } from "../../helpers/urlHelper";
 
 import './Movie.css';
 
 const Movie = () => {
   const { id } = useParams();
+  const ID = Number(id);
 
   const defaultBookingState = {
     firstName: "", 
     lastName: "", 
-    movieShowingId: 0, 
-    movieId: Number(id) 
+    movieShowingId: 0,
+    movieId: ID 
   };
 
-  const { configs: { apiHost, apiPort, apiPaths } } = useContext(ConfigContext);
+  const { configs } = useContext(ConfigContext);
   const [movie, setMovie] = useState<MovieType[]>([]);
   const [movieShowTimes, setMovieShowTimes] = useState<MovieShowTimeType[]>([]);
   const [postResponse, setPostResponse] = useState('');
   const [bookingData, setBookingData] = useState(defaultBookingState);
 
-  const movieApiPath = `${apiHost}:${apiPort}${apiPaths.moviesPath}/${id}`;
-  const showTimesApiPath = `${apiHost}:${apiPort}${apiPaths.movieShowingsPath}/${id}`;
-  const bookingPostPath = `${apiHost}:${apiPort}${apiPaths.movieBookingPath}`;
-
   useEffect(() => {
-    getMovies(movieApiPath, setMovie);
-    getMovieShowTimes(showTimesApiPath, setMovieShowTimes);
-  }, [movieApiPath, showTimesApiPath]);
+    getMovies(movieApiPath(configs, ID), setMovie);
+    getMovieShowTimes(showTimesApiPath(configs, ID), setMovieShowTimes);
+  }, [configs, ID]);
   
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -46,10 +44,10 @@ const Movie = () => {
       firstName: bookingData.firstName, 
       lastName: bookingData.lastName, 
       movieShowingId: Number(bookingData.movieShowingId), 
-      movieId: Number(id)
+      movieId: ID
     };
 
-    createBooking(bookingPostPath, data, setPostResponse);
+    createBooking(bookingPostPath(configs), data, setPostResponse);
   }
     
   const handleBookAgain = (e) => {
@@ -60,7 +58,7 @@ const Movie = () => {
 
   return (
     <>
-      <h2>{movie[0].name}</h2>
+      <h2>{movie[0]?.name}</h2>
       <div className="show-times">
         <h3>Show Times:</h3>
         <ul>
