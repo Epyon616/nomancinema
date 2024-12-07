@@ -11,11 +11,10 @@ const pool = new Pool({
 const createMovieBooking = (request, response) => {
   const { firstName, lastName, movieId, movieShowingId } = request.body;
 
-  pool.quert(
-    'INSERT INTO movie_bookings (first_name, last_name, movie_id, movie_showing_id) VALUES ($1, $2, $3, $4', 
+  pool.query(
+    'INSERT INTO movie_bookings (first_name, last_name, movie_id, movie_showing_id) VALUES ($1, $2, $3, $4)', 
     [firstName, lastName, movieId, movieShowingId], (error, results) => {
       if (error) throw error;
-      console.log(results);
       response.status(201).send("Booking confirmed");
     }
   );

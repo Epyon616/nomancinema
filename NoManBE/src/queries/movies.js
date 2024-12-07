@@ -27,7 +27,7 @@ const getMovieById = (request, response) => {
   const returnedResponse = new ResponseClass();
   const id = parseInt(request.params.id);
 
-  pool.query('SELECT * FROM movies WHERE id = $1',[id], (error, results) => {
+  pool.query('SELECT * FROM movies WHERE id = $1 LIMIT 1',[id], (error, results) => {
     if (error) throw error;
   
     if (results.rowCount === 0) {
