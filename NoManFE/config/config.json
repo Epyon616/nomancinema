@@ -1,0 +1,9 @@
+{
+  "apiHost": "http://localhost",
+  "apiPort": "3000",
+  "apiPaths": {
+    "moviesPath": "/movies",
+    "movieShowingsPath": "/movie-showings",
+    "movieBookingPath": "/movie-booking"
+  }
+}
