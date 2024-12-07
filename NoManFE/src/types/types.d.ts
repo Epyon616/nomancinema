@@ -12,3 +12,10 @@ export type MovieType = {
 export type ShowTimeType = {
   time: number
 }
+
+export type bookingDataType = {
+  firstName: string, 
+  lastName: string, 
+  movieId: number, 
+  movieShowingId: number
+}
