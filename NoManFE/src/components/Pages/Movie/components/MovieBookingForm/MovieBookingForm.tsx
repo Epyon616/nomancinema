@@ -30,8 +30,8 @@ const MovieBookingForm = ({
       </label>
       <label>
         Select showing: 
-        <select name="movieShowingId" onChange={handleChange} value={booking.movieShowingId}>
-          <option disabled selected value="0">select an option</option>
+        <select name="movieShowingId" onChange={handleChange} value={booking.movieShowingId} defaultValue={0}>
+          <option disabled value="0">select an option</option>
           {times.map((time: MovieShowTimeType) => (
             <option
               key={time.time} 

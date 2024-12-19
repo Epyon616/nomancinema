@@ -1,10 +1,11 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext, ChangeEvent } from "react";
 import { useParams } from "react-router-dom";
 import { ConfigContext } from '../../../contexts/ConfigContext';
 import {getMovies, getMovieShowTimes } from "../../../apiCallbacks";
 import { MovieShowTimeType, MovieType } from "../../../types/types";
 import ShowTimeList from "./components/ShowTimeList";
-import MovieBookingForm from "./components/MovieBookingForm";
+import MovieBookingForm from './components/MovieBookingForm';
+import BookAgain from './components/BookAgain';
 import createBooking from "../../../apiCallbacks/postCallbacks";
 import { movieApiPath, showTimesApiPath, bookingPostPath } from "../../helpers/urlHelper";
 
@@ -32,12 +33,12 @@ const Movie = () => {
     getMovieShowTimes(showTimesApiPath(configs, ID), setMovieShowTimes);
   }, [configs, ID]);
   
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setBookingData((prevState) => ({ ...prevState, [name]: value}));
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: SubmitEvent) => {
     e.preventDefault();
 
     const data = {
@@ -50,15 +51,16 @@ const Movie = () => {
     createBooking(bookingPostPath(configs), data, setPostResponse);
   }
     
-  const handleBookAgain = (e) => {
-    e.preventDefault();
+  const handleBookAgain = () => {
     setPostResponse('');
     setBookingData(defaultBookingState);
   }
+  
+  if (movie.length === 0) return <div>Loading...</div>
 
   return (
     <>
-      <h2>{movie[0]?.name}</h2>
+      <h2>{movie[0].name}</h2>
       <div className="show-times">
         <h3>Show Times:</h3>
         <ul>
@@ -73,10 +75,10 @@ const Movie = () => {
           handleSubmit={handleSubmit} 
         />
       ) : (
-        <>
-          <h1 className="booking-confirmed">{postResponse}</h1>
-          <button type="button" className="book-again-button" onClick={handleBookAgain}>Book again</button>
-        </>
+        <BookAgain 
+          postResponse={postResponse} 
+          handleBookAgain={handleBookAgain} 
+        />
       )}
  
     </>

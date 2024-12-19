@@ -9,7 +9,7 @@ export type MovieBookingDataType = {
 export type MovieBookingFormType = {
   times: MovieShowTimeType[],
   booking: bookingDataType,
-  handleChange: (e: unknown) => void,
-  handleSubmit: (e: unknown) => void
+  handleChange: (e: ChangeEvent<HTMLInputElement>) => void,
+  handleSubmit: (e: SubmitEvent) => void
 }
 
