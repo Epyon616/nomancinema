@@ -18,9 +18,9 @@ const Movies = () => {
   return (
     <>
       <h2>Movie Listings</h2>
-      <ul>
+      <>
         <MoviesList movies={movies} /> 
-      </ul>
+      </>
     </>
   );
 } 
