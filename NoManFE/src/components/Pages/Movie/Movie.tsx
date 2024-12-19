@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext, ChangeEvent } from "react";
+import { useEffect, useState, useContext, ChangeEvent, MouseEventHandler } from "react";
 import { useParams } from "react-router-dom";
 import { ConfigContext } from '../../../contexts/ConfigContext';
 import {getMovies, getMovieShowTimes } from "../../../apiCallbacks";
@@ -38,7 +38,7 @@ const Movie = () => {
     setBookingData((prevState) => ({ ...prevState, [name]: value}));
   }
 
-  const handleSubmit = (e: SubmitEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
     const data = {
