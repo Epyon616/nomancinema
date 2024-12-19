@@ -1,6 +1,6 @@
-import { BrowserRouter } from "react-router-dom";
-import { screen, render } from "@testing-library/react";
-import MovieListItem from "./MovieListItem";
+import { BrowserRouter } from 'react-router-dom';
+import { screen, render } from '@testing-library/react';
+import MovieListItem from './MovieListItem';
 
 describe('MovieListItem', () => {
   it('renders the component correctly', () => {

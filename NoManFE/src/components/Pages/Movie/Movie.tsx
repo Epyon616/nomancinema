@@ -1,13 +1,10 @@
-import { useEffect, useState, useContext, ChangeEvent, MouseEventHandler } from "react";
-import { useParams } from "react-router-dom";
+import { useEffect, useState, useContext, ChangeEvent } from 'react';
+import { useParams } from 'react-router-dom';
 import { ConfigContext } from '../../../contexts/ConfigContext';
-import {getMovies, getMovieShowTimes } from "../../../apiCallbacks";
-import { MovieShowTimeType, MovieType } from "../../../types/types";
-import ShowTimeList from "./components/ShowTimeList";
-import MovieBookingForm from './components/MovieBookingForm';
-import BookAgain from './components/BookAgain';
-import createBooking from "../../../apiCallbacks/postCallbacks";
-import { movieApiPath, showTimesApiPath, bookingPostPath } from "../../helpers/urlHelper";
+import { getMovies, getMovieShowTimes, createBooking } from '../../../apiCallbacks';
+import { MovieShowTimeType, MovieType } from '../../../types/types';
+import { BookAgain, ShowTimeList, MovieBookingForm } from './components';
+import { movieApiPath, showTimesApiPath, bookingPostPath } from '../../helpers/urlHelper';
 
 import './Movie.css';
 
@@ -16,8 +13,8 @@ const Movie = () => {
   const ID = Number(id);
 
   const defaultBookingState = {
-    firstName: "", 
-    lastName: "", 
+    firstName: '', 
+    lastName: '', 
     movieShowingId: 0,
     movieId: ID 
   };

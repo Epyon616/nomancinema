@@ -1,3 +1,4 @@
-import { getMovies, getMovieShowTimes } from "./getCallbacks";
+import { getMovies, getMovieShowTimes } from './getCallbacks';
+import createBooking from './postCallbacks';
 
-export { getMovies, getMovieShowTimes };
+export { getMovies, getMovieShowTimes, createBooking };

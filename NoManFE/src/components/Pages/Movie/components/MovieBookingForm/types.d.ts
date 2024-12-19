@@ -1,4 +1,4 @@
-import { MovieShowTimeType, bookingDataType } from "../../../../../types/types"
+import { MovieShowTimeType, bookingDataType } from '../../../../../types/types'
 
 export type MovieBookingDataType = {
   firstName: string,

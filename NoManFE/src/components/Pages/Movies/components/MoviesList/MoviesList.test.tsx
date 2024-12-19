@@ -1,6 +1,6 @@
-import { screen, render } from "@testing-library/react";
-import { BrowserRouter } from "react-router-dom";
-import MoviesList from "./MoviesList";
+import { screen, render } from '@testing-library/react';
+import { BrowserRouter } from 'react-router-dom';
+import MoviesList from './MoviesList';
 
 describe('MoviesList', () => {
   describe('When an empty array is passed', () => {

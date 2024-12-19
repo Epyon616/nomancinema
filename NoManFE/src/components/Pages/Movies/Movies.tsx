@@ -9,10 +9,11 @@ const Movies = () => {
   const { configs } = useContext(ConfigContext);
   const [movies, setMovies] = useState<MovieType[]>([]);
  
-
   useEffect(() => {
     getMovies(moviesApiPath(configs), setMovies)
   }, [configs]);
+
+  if (movies.length === 0) return <div>Loading...</div>
 
   return (
     <>
