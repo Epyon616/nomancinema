@@ -11,6 +11,7 @@ nav {
   @media screen and (max-width: 900px) {
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr;
+    padding: 5px 10px;
   }
 }
 
@@ -21,11 +22,20 @@ nav h1 {
   letter-spacing: -1px;
   font-style: italic;
   margin: 0;
+  
+  @media screen and (max-width: 900px) {
+    text-align: center;
+    font-size: 1.6
+  }
 }
 
 nav ul {
-  width: 70%;
-  display: inline-block;
+  margin: 0;
+  padding: 20px 0;
+
+  @media screen and (max-width: 900px) {
+    text-align: center;
+  }
 }
 
 nav ul > li {

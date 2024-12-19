@@ -5,6 +5,7 @@ footer {
   text-align: center;
   height: 40px;
   border-top: 1px solid #555;
+  background: #000;
 }
 
 footer sub {
