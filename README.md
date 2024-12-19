@@ -25,5 +25,6 @@ __NOTE__: This is by no means a production ready application (nor do I own a cin
 TODO: 
 
 * Swap out backend app for originally built app using Sequelize (Once I figure out whey Docker isn't running the setup and migration scripts on first start up) - The backend application is currently a quickly thrown together piece to keep things moving. 
+* Once Sequelize backend app is in place and working correctly, remove the data dir from the project as it will no longer be needed for dummy data.
 * Replace Vanilla CSS with Sass
 * Look at other ways to extend the application to demonstrate my skills further.
