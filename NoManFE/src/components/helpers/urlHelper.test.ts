@@ -1,5 +1,5 @@
 import { moviesApiPath, movieApiPath, showTimesApiPath, bookingPostPath } from './urlHelper';
-import { AppConfig } from '../../contexts/ConfigContext/types';
+import { AppConfig } from '../../Contexts/ConfigContext/types';
 
 describe('urlHelper', () => {
   const mockConfigs: AppConfig = {

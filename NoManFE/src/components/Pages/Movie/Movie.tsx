@@ -1,82 +1,72 @@
-import { useEffect, useState, useContext, ChangeEvent } from 'react';
+import { useMemo } from 'react';
 import { useParams } from 'react-router-dom';
-import { ConfigContext } from '../../../contexts/ConfigContext';
-import { getMovies, getMovieShowTimes, createBooking } from '../../../apiCallbacks';
-import { MovieShowTimeType, MovieType } from '../../../types/types';
-import { BookAgain, ShowTimeList, MovieBookingForm } from './components';
-import { movieApiPath, showTimesApiPath, bookingPostPath } from '../../helpers/urlHelper';
+import { ShowTimeList } from './components';
+import { useQuery } from '@tanstack/react-query';
+import { fetchMovieById, fetchShowingsByMovieId } from '../../../api/movies';
 
 import './Movie.css';
+import BookingForm from './components/BookingForm';
+
+
+function parseId(raw: string | undefined) {
+  const n = Number(raw);
+  return Number.isInteger(n) ? n : null;
+}
 
 const Movie = () => {
-  const { id } = useParams();
-  const ID = Number(id);
+  const params = useParams();
+  const movieId = useMemo(() => parseId(params.id), [params.id]);
 
-  const defaultBookingState = {
-    firstName: '', 
-    lastName: '', 
-    movieShowingId: 0,
-    movieId: ID 
-  };
+  const movieQuery = useQuery({
+    queryKey: ["movie", movieId],
+    queryFn: () => fetchMovieById(movieId as number),
+    enabled: movieId !== null,
+  });
 
-  const { configs } = useContext(ConfigContext);
-  const [movie, setMovie] = useState<MovieType[]>([]);
-  const [movieShowTimes, setMovieShowTimes] = useState<MovieShowTimeType[]>([]);
-  const [postResponse, setPostResponse] = useState('');
-  const [bookingData, setBookingData] = useState(defaultBookingState);
+  const showingsQuery = useQuery({
+    queryKey: ["showings", movieId],
+    queryFn: () => fetchShowingsByMovieId(movieId as number),
+    enabled: movieId !== null,
+  });
 
-  useEffect(() => {
-    getMovies(movieApiPath(configs, ID), setMovie);
-    getMovieShowTimes(showTimesApiPath(configs, ID), setMovieShowTimes);
-  }, [configs, ID]);
-  
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setBookingData((prevState) => ({ ...prevState, [name]: value}));
-  }
+  if (movieId === null) return <div>Invalid movie id.</div>;
+  if (movieQuery.isLoading) return <div>Loading movie…</div>;
+  if (movieQuery.isError)
+    return (
+      <div>
+        Couldn’t load movie.
+        <pre>{(movieQuery.error as Error).message}</pre>
+      </div>
+    );
 
-  const handleSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-
-    const data = {
-      firstName: bookingData.firstName, 
-      lastName: bookingData.lastName, 
-      movieShowingId: Number(bookingData.movieShowingId), 
-    };
-
-    createBooking(bookingPostPath(configs), data, setPostResponse);
-  }
-    
-  const handleBookAgain = () => {
-    setPostResponse('');
-    setBookingData(defaultBookingState);
-  }
-  
-  if (movie.length === 0) return <div>Loading...</div>
+  const movie = movieQuery.data;
+  if (movie === undefined) return <p>please hold on</p>
 
   return (
     <>
-      <h2>{movie[0].name}</h2>
+      <h2>{movie.name}</h2>
+      <p>{movie.description}</p>
       <div className="show-times">
         <h3>Show Times:</h3>
-        <ul>
-          <ShowTimeList showTimes={movieShowTimes} /> 
-        </ul>
-      </div>
-      {!postResponse ? (      
-        <MovieBookingForm 
-          times={movieShowTimes} 
-          booking={bookingData} 
-          handleChange={handleChange} 
-          handleSubmit={handleSubmit} 
-        />
-      ) : (
-        <BookAgain 
-          postResponse={postResponse} 
-          handleBookAgain={handleBookAgain} 
-        />
-      )}
- 
+        { showingsQuery.isLoading && <div>Loading showtimes... </div>}
+        { showingsQuery.isError && (
+          <div> 
+            Couldn't load show times. 
+            <pre>{(showingsQuery.error as Error).message}</pre>
+          </div>
+        )}
+        {showingsQuery.data && showingsQuery.data.length === 0 && (
+          <div>No showtimes available.</div>
+        )}
+        {showingsQuery.data && showingsQuery.data.length > 0 && (
+          <>
+            <ul>
+              <ShowTimeList showTimes={showingsQuery.data} />
+            </ul>
+            <BookingForm showingsQuery={showingsQuery} movieId={movieId} />
+          </>
+        )}  
+      </div> 
     </>
   )
 };

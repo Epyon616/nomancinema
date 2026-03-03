@@ -1,9 +1,7 @@
-import BookAgain from './BookAgain';
-import MovieBookingForm from './MovieBookingForm';
 import ShowTimeList from './ShowTimeList';
+import BookingForm from './BookingForm';
 
 export {
-  BookAgain, 
-  MovieBookingForm, 
+  BookingForm, 
   ShowTimeList, 
 }

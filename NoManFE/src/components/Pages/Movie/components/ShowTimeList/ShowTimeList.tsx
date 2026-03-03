@@ -4,11 +4,11 @@ import ShowTimeListItem from '../ShowTimeListItem';
 
 const ShowTimeList = ({showTimes}: ShowTimeListType) => {
   if (showTimes.length === 0) return (<li>No Times available</li>);
-
+  console.log(showTimes)
   return (
     <>
       {showTimes.map((time:ShowTimeType) => (
-        <ShowTimeListItem key={time.time} time={time.time} />
+        <ShowTimeListItem key={time.id} showing_time={time.showing_time} id={time.id} />
       ))}
     </>  
   )

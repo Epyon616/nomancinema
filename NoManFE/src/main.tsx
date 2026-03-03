@@ -1,15 +1,16 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import { ConfigsProvider } from './contexts/ConfigContext/index.ts'
-import configData from '../config/config.json';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-import './index.css'
-import App from './App.tsx'
+import './index.css';
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <ConfigsProvider configJson={configData}>
+const queryClient = new QueryClient();
+
+ReactDOM.createRoot(document.getElementById("root")!).render(
+  <React.StrictMode>
+    <QueryClientProvider client={queryClient}>
       <App />
-    </ConfigsProvider> 
-  </StrictMode>,
-)
+    </QueryClientProvider>
+  </React.StrictMode>
+);

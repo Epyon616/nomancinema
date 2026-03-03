@@ -1,4 +1,4 @@
-import { AppConfig } from "../../contexts/ConfigContext/types";
+import { AppConfig } from "../../Contexts/ConfigContext/types";
 
 export  const moviesApiPath = (config:AppConfig) => `${config.apiHost}:${config.apiPort}${config.apiPaths.moviesPath}`;
 export const movieApiPath = (config:AppConfig, id:number) => `${config.apiHost}:${config.apiPort}${config.apiPaths.moviesPath}/${id}`;
