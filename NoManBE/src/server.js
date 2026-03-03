@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const { 
-  getMovies, 
+  getMoviesList, 
   getMovieById, 
   getMovieShowingsByMovieId, 
   createMovieBooking 
@@ -24,7 +24,7 @@ app.get('/api', (request, response) => {
   });
 });
 
-app.get('/api/movies', getMovies);
+app.get('/api/movies', getMoviesList);
 app.get('/api/movies/:id', getMovieById);
 
 app.get('/api/movie-showings/:id', getMovieShowingsByMovieId);
