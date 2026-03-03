@@ -42,7 +42,6 @@ const Movie = () => {
       firstName: bookingData.firstName, 
       lastName: bookingData.lastName, 
       movieShowingId: Number(bookingData.movieShowingId), 
-      movieId: ID
     };
 
     createBooking(bookingPostPath(configs), data, setPostResponse);

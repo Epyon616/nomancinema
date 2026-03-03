@@ -16,6 +16,5 @@ export type ShowTimeType = {
 export type bookingDataType = {
   firstName: string, 
   lastName: string, 
-  movieId: number, 
   movieShowingId: number
 }
