@@ -1,4 +1,6 @@
-
+TRUNCATE TABLE movie_bookings RESTART IDENTITY CASCADE;
+TRUNCATE TABLE movie_showings RESTART IDENTITY CASCADE;
+TRUNCATE TABLE movies RESTART IDENTITY CASCADE;
 INSERT INTO movies (name, description, duration_minutes)
 VALUES
 ('Interstellar', 'A team travels through a wormhole in space.', 169),
@@ -10,7 +12,7 @@ VALUES
 (1, NOW() + INTERVAL '2 days'),
 (2, NOW() + INTERVAL '1 day'),
 (3, NOW() + INTERVAL '3 days');
-INSERT INTO movie_bookings (first_name, last_name, movie_id, movie_showing_id)
+INSERT INTO movie_bookings (first_name, last_name, movie_showing_id)
 VALUES
-('John', 'Smith', 1, 1),
-('Sarah', 'Connor', 2, 3);
+('John','Smith', 1),
+('Sarah','Connor', 2);
