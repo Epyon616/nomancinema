@@ -47,14 +47,14 @@ The database is initialised using schema and seed scripts on first startup.
 
 Create a root `.env` file:
 
-
+```
 POSTGRES_DB=nomancinema
 POSTGRES_USER=postgres
 POSTGRES_PASSWORD=your-password
 POSTGRES_PORT=5432
 
 BE_PORT=3001
-
+```
 
 Frontend `.env`:
 
