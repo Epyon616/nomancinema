@@ -10,12 +10,12 @@ services:
       - ./NoManBE:/usr/src/app
       - /usr/src/app/node_modules
     environment: 
-      DB_USER: postgres
-      DB_PASSWORD: 'devilledeggs'
-      DB_NAME: nomancinema
+      DB_USER: ${POSTGRES_USER}
+      DB_PASSWORD: ${POSTGRES_PASSWORD}
+      DB_NAME: ${POSTGRES_DB}
     tty: true
     ports: 
-      - "3000:3000"
+      - "${BE_PORT}:3000"
     command: npm start
     depends_on:
       - db
@@ -32,7 +32,7 @@ services:
       - /usr/src/app/node_modules
     tty: true
     ports: 
-      - "5173:5173"
+      - "${FE_PORT}:5173"
     command: npm run dev
   
   db:
@@ -41,14 +41,15 @@ services:
     container_name: db
     restart: always
     tty: true
-    environment: 
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 'devilledeggs'
-      POSTGRES_DB: nomancinema
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
-      - ./data:/var/lib/postgresql/data
+      - ./database:/docker-entrypoint-initdb.d
+      - ./data:/var/lib/postgresql
     ports: 
-      - "5432:5432"
+      - "${POSTGRES_PORT}:5432"
     networks: 
       - node-network
 
