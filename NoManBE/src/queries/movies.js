@@ -1,12 +1,6 @@
 const Pool = require("pg").Pool;
 const ResponseClass = require('../helpers/response');
-
-const pool = new Pool({
-  user: process.env.DB_USER,
-  host: 'db',
-  database: process.env.DB_NAME,
-  password: process.env.DB_PASSWORD
-});
+const pool = require("../db/pool");
 
 const getMoviesList = (request, response) => {
   pool.query("SELECT * FROM movies ORDER BY id ASC", (error, results) => {

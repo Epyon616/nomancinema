@@ -1,12 +1,6 @@
 const Pool = require("pg").Pool;
 const ResponseClass = require('../helpers/response');
-
-const pool = new Pool({
-  user: process.env.DB_USER,
-  host: 'db',
-  database: process.env.DB_NAME,
-  password: process.env.DB_PASSWORD
-});
+const pool = require("../db/pool");
 
 const createMovieBooking = (request, response) => {
   const { firstName, lastName, movieId, movieShowingId } = request.body ?? {};

@@ -7,7 +7,7 @@ const {
   getMovieShowingsByMovieId, 
   createMovieBooking 
 } = require('./queries');
-
+const pool = require("./db/pool");
 
 const app = express();
 const port = 3000;
@@ -32,3 +32,13 @@ app.get('/api/movie-showings/:id', getMovieShowingsByMovieId);
 app.post('/api/movie-booking', createMovieBooking);
 
 module.exports = app;
+
+process.on("SIGTERM", async () => {
+  await pool.end();
+  process.exit(0);
+});
+
+process.on("SIGINT", async () => {
+  await pool.end();
+  process.exit(0);
+});

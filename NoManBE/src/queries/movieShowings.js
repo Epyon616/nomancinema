@@ -1,13 +1,7 @@
 const Pool = require("pg").Pool;
 const ResponseClass = require('../helpers/response');
+const pool = require("../db/pool");
 
-const pool = new Pool({
-  user: process.env.DB_USER,
-  host: 'db',
-  database: process.env.DB_NAME,
-  password: process.env.DB_PASSWORD
-});
-  
 const getMovieShowingsByMovieId = (request, response) => {
   const id = Number(request.params.id);
 
