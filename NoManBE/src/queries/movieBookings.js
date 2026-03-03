@@ -2,10 +2,10 @@ const Pool = require("pg").Pool;
 const ResponseClass = require('../helpers/response');
 const pool = require("../db/pool");
 
-const createMovieBooking = (request, response) => {
-  const { firstName, lastName, movieId, movieShowingId } = request.body ?? {};
+const createMovieBooking = (request, response, next) => {
+  const { firstName, lastName, movieShowingId } = request.body ?? {};
 
-  if (!firstName || !lastName || !movieId || !movieShowingId) {
+  if (!firstName || !lastName || !movieShowingId) {
     return response.status(400).json({
       code: 400,
       message: "Missing required fields",
@@ -13,13 +13,22 @@ const createMovieBooking = (request, response) => {
     });
   }
 
+  const showingId = Number(movieShowingId);
+  if (!Number.isInteger(showingId)) {
+    return response.status(400).json({
+      code: 400,
+      message: "Invalid movieShowingId",
+      data: null,
+    });
+  }
+
   pool.query(
     `
-    INSERT INTO movie_bookings (first_name, last_name, movie_id, movie_showing_id)
-    VALUES ($1, $2, $3, $4)
+    INSERT INTO movie_bookings (first_name, last_name, movie_showing_id)
+    VALUES ($1, $2, $3)
     RETURNING id
     `,
-    [firstName, lastName, movieId, movieShowingId],
+    [firstName, lastName, showingId],
     (error, results) => {
       if (error) return next(error);
 
