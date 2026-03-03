@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { createBooking } from '../../../../../api/movies';
 import { BookingFormType } from './BookingForm.types';
-import { format } from '../../../../helpers/dateTimeHelper';
 
 
 const BookingForm = ({ showingsQuery, movieId }: BookingFormType) => {

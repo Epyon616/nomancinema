@@ -1,30 +1,62 @@
-# No Man Cinema
+# NoMan Cinema
 
-This is an dummy movie booking application built using NodeJS, ReactJs, PostGres, Nginx, and Docker.
+A full-stack cinema booking application built with:
 
-It consists of a movie listings page, a movie page and a form to book a showing.
+- **Frontend**: React + TypeScript + Vite + TanStack Query
+- **Backend**: Node.js + Express
+- **Database**: PostgreSQL
+- **Infra**: Docker + Docker Compose
+- **Reverse Proxy**: Nginx
 
-To run the application: 
+The project demonstrates clean API design, proper HTTP semantics, schema integrity, error handling, and modern frontend data management patterns.
 
-First time: 
-``` 
-docker-compose up --build
-```
-This should build and setup the necesary container and images
+---
 
-after that any time you wish to start it you should be able to just run: 
+## Architecture
 
-```
-docker-compose up
-```
+The application runs as a multi-container Docker setup:
 
-The database should already be created and tables populated with seed data after setup however if they are not there is an init.sql stored at `'/database/init.sql` with all the necessary sql commands you will need to use to get it set up.
+- `fe` – React frontend
+- `be` – Express API server
+- `db` – PostgreSQL database
+- `nginx` – Reverse proxy
 
-__NOTE__: This is by no means a production ready application (nor do I own a cinema for it to be used with). 
+The frontend communicates with the backend via REST endpoints.  
+The backend uses a shared PostgreSQL connection pool and centralised error handling.  
+The database is initialised using schema and seed scripts on first startup.
 
-TODO: 
+---
 
-* Swap out backend app for originally built app using Sequelize (Once I figure out whey Docker isn't running the setup and migration scripts on first start up) - The backend application is currently a quickly thrown together piece to keep things moving. 
-* Once Sequelize backend app is in place and working correctly, remove the data dir from the project as it will no longer be needed for dummy data.
-* Replace Vanilla CSS with Sass
-* Look at other ways to extend the application to demonstrate my skills further.
+## Features
+
+- List all movies
+- View movie details
+- View showtimes per movie
+- Create bookings
+- Proper HTTP status codes (200 / 201 / 400 / 404 / 500)
+- Centralised Express error middleware
+- React Query for caching + async state management
+- Supertest integration tests for API behaviour
+- Dockerised development environment
+
+---
+
+## Running Locally
+
+### 1. Create environment variables
+
+Create a root `.env` file:
+
+
+POSTGRES_DB=nomancinema
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=your-password
+POSTGRES_PORT=5432
+
+BE_PORT=3001
+
+
+Frontend `.env`:
+
+
+MIT

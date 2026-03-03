@@ -22,17 +22,17 @@ export type Movie = {
   duration_minutes?: number;
 };
 
+// Alias for backward compatibility
+export type MovieType = Movie;
+
 export type MovieShowing = {
   id: number;
   movie_id: number;
   showing_time: string;
 };
 
-export type ApiResponse<T> = {
-  code: number;
-  message: string;
-  data: T;
-};
+// Alias for backward compatibility
+export type MovieShowTimeType = MovieShowing;
 
 export type CreateBookingInput = {
   firstName: string;
