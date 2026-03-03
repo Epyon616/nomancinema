@@ -1,25 +1,74 @@
 const request = require('supertest');
 const app = require('../server');
 
-describe('Movies API', () => {
-  let server;
-  beforeAll(() => {
-    server  = app.listen(3001);
+// Mock the database pool
+jest.mock('../db/pool', () => ({
+  query: jest.fn(),
+  end: jest.fn()
+}));
+
+const pool = require('../db/pool');
+
+describe('Movies API Integration Tests', () => {
+  afterEach(() => {
+    jest.clearAllMocks();
   });
 
-  afterAll(() => {
-    server.close();
-  });
+  describe('GET /api/movies', () => {
+    it('should return a 200 response with movies', async () => {
+      const mockMovies = [
+        { id: 1, name: 'Test Movie 1' },
+        { id: 2, name: 'Test Movie 2' }
+      ];
 
-  describe('GET Movies', () => {
-    it('Should return a 200 response', async (done) => {
-      const response = await request(server).get('/api/movies');
+      pool.query.mockImplementation((query, callback) => {
+        callback(null, { rows: mockMovies });
+      });
+
+      const response = await request(app).get('/api/movies');
+      
       expect(response.status).toBe(200);
-      done();
+      expect(response.body.code).toBe(200);
+      expect(response.body.data).toEqual(mockMovies);
+    });
+  });
+
+  describe('GET /api/movies/:id', () => {
+    it('should return a specific movie', async () => {
+      const mockMovie = { id: 1, name: 'Test Movie' };
+
+      pool.query.mockImplementation((query, params, callback) => {
+        callback(null, { rows: [mockMovie] });
+      });
+
+      const response = await request(app).get('/api/movies/1');
+      
+      expect(response.status).toBe(200);
+      expect(response.body.data).toEqual(mockMovie);
+    });
+  });
+
+  describe('POST /api/movie-booking', () => {
+    it('should create a booking successfully', async () => {
+      pool.query.mockImplementation((query, params, callback) => {
+        callback(null, { rows: [{ id: 456 }] });
+      });
+
+      const response = await request(app)
+        .post('/api/movie-booking')
+        .send({
+          firstName: 'Jane',
+          lastName: 'Smith',
+          movieShowingId: 2
+        });
+      
+      expect(response.status).toBe(201);
+      expect(response.body.message).toBe('Booking confirmed');
+      expect(response.body.data.bookingId).toBe(456);
     });
   });
 });
 
-// NOTE: test times out due to not having a properly set up test env with a test db for the application to connect to. 
-// In a real world application seperate dev and test envs can be acchieved using an ORM that facilitates the use of separate 
-// databases with migration scripts to easily set up, seed and tear down the test env at will.
+// NOTE: These tests now use mocked database connections instead of requiring a real database.
+// In a production environment, you would also want integration tests with a test database
+// using an ORM that facilitates separate dev and test environments with migration scripts.
