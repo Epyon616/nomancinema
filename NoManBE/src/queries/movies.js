@@ -8,43 +8,46 @@ const pool = new Pool({
   password: process.env.DB_PASSWORD
 });
 
-const getMovies = (request, response) => {
-  const returnedResponse = new ResponseClass();
+const getMoviesList = (request, response) => {
+  pool.query("SELECT * FROM movies ORDER BY id ASC", (error, results) => {
+    if (error) return next(error);
 
-  pool.query('SELECT * FROM movies ORDER BY id ASC', (error, results) => {
-    if (error) throw error;
-
-    returnedResponse.status = true;
-    returnedResponse.code = 200;
-    returnedResponse.message = "Success";
-    returnedResponse.data = results.rows;
-
-    response.status(200).json(returnedResponse);
+    return response.status(200).json({
+      code: 200,
+      message: "Movies list retrieved",
+      data: results.rows,
+    });
   });
-}
+};
 
 const getMovieById = (request, response) => {
-  const returnedResponse = new ResponseClass();
-  const id = parseInt(request.params.id);
+  const id = Number(request.params.id);
 
-  pool.query('SELECT * FROM movies WHERE id = $1 LIMIT 1',[id], (error, results) => {
-    if (error) throw error;
-  
-    if (results.rowCount === 0) {
-      returnedResponse.status = true;
-      returnedResponse.code = 404;
-      returnedResponse.message = "Movie not found";
-      returnedResponse.data = null;
-    } else {
-      returnedResponse.status = true;
-      returnedResponse.code = 200;
-      returnedResponse.message = "Success";
-      returnedResponse.data = results.rows;
+  if (!Number.isInteger(id)) {
+    return response.status(400).json({
+      code: 400,
+      message: "Invalid movie id",
+      data: null,
+    });
+  }
+
+  pool.query("SELECT * FROM movies WHERE id = $1", [id], (error, results) => {
+    if (error) return next(error);
+
+    if (results.rows.length === 0) {
+      return response.status(404).json({
+        code: 404,
+        message: "Movie not found",
+        data: null,
+      });
     }
 
-
-    response.status(200).json(returnedResponse);
+    return response.status(200).json({
+      code: 200,
+      message: "Movie retrieved",
+      data: results.rows[0],
+    });
   });
-}
+};
 
-module.exports = { getMovies, getMovieById }
+module.exports = { getMoviesList, getMovieById }
