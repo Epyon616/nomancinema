@@ -2,7 +2,7 @@ nav {
   width: 100vw;
   min-height: 50px;
   padding: 20px 40px;
-  background: #666666;
+  background: #141418;
   position: fixed;
   display: grid;
   grid-template-columns: 300px 1fr;
@@ -46,11 +46,11 @@ nav ul > li {
 nav ul > li a {
   font-size: 18px;
   text-decoration: none;
-  color: white;
+  color: #E50914;
   font-weight: 700;
 }
 
 nav ul > li a:hover {
-  color: yellow;
+  color: #B20710;
   text-decoration: underline;
 }

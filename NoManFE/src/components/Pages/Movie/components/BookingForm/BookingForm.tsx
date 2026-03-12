@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { createBooking } from '../../../../../api/movies';
 import { BookingFormType } from './BookingForm.types';
-
+import './BookingForm.css';
+import BookingTimes from '../BookingTimes';
 
 const BookingForm = ({ showingsQuery, movieId }: BookingFormType) => {
   const queryClient = useQueryClient();
@@ -40,27 +41,12 @@ const BookingForm = ({ showingsQuery, movieId }: BookingFormType) => {
             onChange={(e) => setLastName(e.target.value)}
           />
         </div>
-        <ul className="booking-times">
-          {showingsQuery.data.map((s) => (
-            <li key={s.id}>
-              {new Date(s.showing_time).toLocaleString("en-GB", {})}
-              <button
-                disabled={
-                  bookingMutation.isPending || !firstName.trim() || !lastName.trim()
-                }
-                onClick={() =>
-                  bookingMutation.mutate({
-                    firstName: firstName.trim(),
-                    lastName: lastName.trim(),
-                    movieShowingId: s.id,
-                  })
-                }
-              >
-                {bookingMutation.isPending ? "Booking…" : "Book"}
-              </button>
-            </li>
-          ))}
-        </ul>
+        <BookingTimes 
+          showings={showingsQuery} 
+          booking={bookingMutation} 
+          firstName={firstName} 
+          lastName={lastName} 
+        />
       </>
     )}
   </>

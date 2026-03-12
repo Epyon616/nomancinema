@@ -43,7 +43,7 @@ const Movie = () => {
   if (movie === undefined) return <p>please hold on</p>
 
   return (
-    <>
+    <div className="movie">
       <h2>{movie.name}</h2>
       <p>{movie.description}</p>
       <div className="show-times">
@@ -67,7 +67,7 @@ const Movie = () => {
           </>
         )}  
       </div> 
-    </>
+    </div>
   )
 };
 

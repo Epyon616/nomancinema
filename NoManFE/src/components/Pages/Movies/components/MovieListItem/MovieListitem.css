@@ -1,14 +1,15 @@
 .list-item {
   list-style-type: none;
   width: 100%;
-  background: #777;
+  background: #1A1A1F;
   margin-bottom: 20px;
   font-size: 2rem;
   text-align: center;
   border-radius: 10px;
+  transition: all 0.3s ease-in-out;
 }
 .list-item:hover {
-  background: #444;
+  background: #24242B;
 }
 
 .list-item a {
@@ -18,7 +19,8 @@
   padding: 25px 0;
   color: white;
   font-weight: 700;
+  transition: all 0.3s ease-in-out;
 }
 .list-item a:hover {
-  color: yellow;
+  color: #7C7C88;
 }

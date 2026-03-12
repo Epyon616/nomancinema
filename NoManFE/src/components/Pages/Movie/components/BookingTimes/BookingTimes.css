@@ -1,0 +1,43 @@
+.booking-form input {
+  height: 45px;
+  background: #EFEFEF;
+  color: #111111;
+  font-size: 18px;
+  box-sizing: border-box;
+  border: 1px solid #666;
+  border-radius: 5px;
+  margin-bottom: 35px;
+  padding: 0 10px;
+}
+
+.booking-times li {
+  display: grid;
+  grid-template-columns: 1fr 120px;
+  text-align: left;
+  font-size: 24px;
+  padding: 16px 30px;
+  border-bottom: 1px solid #666;
+}
+
+.booking-times li button {
+  width: 100%;
+  background: #E50914;
+  height: 40px;
+  font-size: 16px;
+  font-weight: 700;
+  border: none;
+  border-radius: 5px;
+  transition: ease-in-out 300ms;
+  cursor: pointer;
+}
+
+.booking-times li button:hover {
+  background: #B20710;
+  color: #E5E5E5;
+}
+
+.booking-times li button:disabled {
+  background: #787878;
+  color: #333;
+  cursor: not-allowed;
+}
