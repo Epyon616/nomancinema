@@ -14,9 +14,9 @@ Architecture
 
 The application runs as a multi-container Docker setup:
 
-__fe__ – React frontend
-__be__ – Express API server
-__db__ – PostgreSQL database
+__NoManFe__ – React frontend
+__NoManBE__ – Express API server
+__database__ – PostgreSQL database
 __nginx__ – Reverse proxy
 
 The frontend communicates with the backend via REST endpoints.
