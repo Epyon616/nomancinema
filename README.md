@@ -102,11 +102,10 @@ Successful response:
 ```
 #### Testing
 
-Backend tests use Jest + Supertest.
-
-Run tests inside the backend container:
+Run tests:
 ```
-docker compose exec be npm test
+cd NoManBe && npm run test
+cd NoManFe && npm run test
 ```
 Tests validate:
 
