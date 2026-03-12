@@ -1,4 +1,4 @@
-import { MovieType } from "../../types/types"
+import { Movie } from "../../types"
 
 export type MoviesListType = {
   movies: Movie[]

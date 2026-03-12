@@ -1,4 +1,4 @@
-import { ShowTimeType } from '../../types/types';
+import { ShowTimeType } from '../../types';
 import { ShowTimeListType } from './types';
 import ShowTimeListItem from '../ShowTimeListItem';
 

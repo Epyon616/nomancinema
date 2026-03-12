@@ -1,5 +1,5 @@
 import { api } from "../../lib/api";
-import { ApiResponse, CreateBookingInput, Movie, MovieShowing } from "../types/types";
+import { ApiResponse, CreateBookingInput, Movie, MovieShowing } from "../types";
 
 export async function fetchMovies() {
   const res = await api.get<ApiResponse<Movie[]>>("/api/movies");

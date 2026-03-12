@@ -1,4 +1,4 @@
-import { ShowTimeType } from "../../../../../types/types"
+import { ShowTimeType } from "../../types"
 
 export type BookingFormType = {
   showingsQuery: { data: ShowTimeType[] };

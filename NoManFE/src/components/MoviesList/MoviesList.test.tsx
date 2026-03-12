@@ -12,8 +12,8 @@ describe('MoviesList', () => {
 
   describe('When an array of movies is passed', () => {
     const movies= [
-      { id: 1, name: 'test' },
-      { id: 2, name: 'test 2 - the return of the test' }
+      { id: 1, name: 'test', description: 'test' },
+      { id: 2, name: 'test 2 - the return of the test', description: 'test two' }
     ]
 
     it('should render the items', () => {

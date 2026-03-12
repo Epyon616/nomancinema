@@ -1,6 +1,6 @@
 import MovieListItem from '../MovieListItem';
-import { MovieType } from '../../types/types';
-import { MoviesListType } from './types';
+import { Movie } from '../../types';
+import { MoviesListType } from './MovieList.types';
 
 import './styles.css';
 
@@ -9,7 +9,7 @@ const MoviesList = ({movies}: MoviesListType) => {
 
   return (
     <div className="movies">
-      {movies.map((movie:MovieType) => (
+      {movies.map((movie:Movie) => (
         <MovieListItem 
           key={movie.name} 
           name={movie.name} 

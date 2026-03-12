@@ -1,4 +1,5 @@
-import { ShowTimeType } from "../../types/types";
+import { ShowTimeType } from "../../types";
+
 import './ShowTimeListItem.css';
 
 const ShowTimeListItem = ({ showing_time }:ShowTimeType) => {
