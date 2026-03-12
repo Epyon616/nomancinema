@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Layout from './components/Layout';
-import { Home, Movies, Movie } from './components/Pages';
+import Layout from '../components/Layout';
+import { Home, Movies, Movie } from '../components/Pages';
 
 function App() {
   return (
